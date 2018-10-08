@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Learn more: https://github.com/AnchorBlues/YM/setup.py
+# Learn more: https://github.com/AnchorBlues/ym/setup.py
 
 from setuptools import setup, find_packages
 
@@ -19,7 +19,7 @@ setup(
     author='Yu Umegaki',
     author_email='yu.umegaki@gmail.com',
     install_requires=['pandas'],
-    url='https://github.com/AnchorBlues/YM',
+    url='https://github.com/AnchorBlues/ym',
     license=license,
     packages=find_packages(exclude=('tests', 'docs')), 
     test_suite='tests'

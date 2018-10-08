@@ -4,7 +4,7 @@ from datetime import datetime
 import pandas as pd
 
 
-class YM(object):
+class ym(object):
     def __init__(self, *args):
         if len(args) == 2:
             self._year = args[0]
@@ -64,43 +64,43 @@ class YM(object):
     def __add__(self, n):
         m = (self._month + n) % 12
         y = self._year + (self._month + n) // 12
-        obj = YM(y, m)
+        obj = ym(y, m)
         return obj
 
     def __sub__(self, n):
         m = (self._month - n) % 12
         y = self._year + (self._month - n) // 12
-        obj = YM(y, m)
+        obj = ym(y, m)
         return obj
 
     def __eq__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr == obj._repr
 
     def __ne__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr != obj._repr
 
     def __lt__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr < obj._repr
 
     def __le__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr <= obj._repr
 
     def __gt__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr > obj._repr
 
     def __ge__(self, obj):
-        if not isinstance(obj, YM):
-            obj = YM(obj)
+        if not isinstance(obj, ym):
+            obj = ym(obj)
         return self._repr >= obj._repr
 
     def __int__(self):
