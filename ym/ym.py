@@ -106,6 +106,9 @@ class ym(object):
     def __int__(self):
         return self._year * 100 + self._month
 
+    def __hash__(self):
+        return hash(self._repr)
+
     def toint(self):
         return int(self)
 

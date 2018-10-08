@@ -3,6 +3,7 @@
 import os
 import sys
 from datetime import datetime
+from array import array
 import unittest
 import pandas as pd
 sys.path.insert(0, os.path.abspath(
@@ -44,6 +45,7 @@ class BasicTestSuite(unittest.TestCase):
         ym1 = ym(2001, 10)
         ym2 = ym(2002, 3)
         ym_series = pd.Series([ym1, ym2])
+        assert (ym_series == "200110").sum() == 1
         assert (ym_series + 3 == pd.Series([ym(2002, 1), ym(2002, 6)])).all()
         assert (ym_series.apply(lambda v: v.year)
                 == pd.Series([2001, 2002])).all()
@@ -59,6 +61,17 @@ class BasicTestSuite(unittest.TestCase):
         # 年が3桁の場合のテスト
         assert ym(794, 10).toint() == 79410
         assert ym(794, 10).tostr() == "079410"
+
+    def test_hashable(self):
+        dct = {ym(2001, 1): 'hoge'}
+        assert dct[ym(2001, 1)] == 'hoge'
+        df = pd.DataFrame({
+            "string": ['hoge', 'fuga', 'piyo'],
+            "ym": [ym(200101), ym(200101), ym(200102)]
+        })
+        res = df.groupby("ym").size()
+        assert (res.index == pd.Series([ym(200101), "200102"])).all()
+        assert (res.values == array("I", [2, 1])).all()
 
 
 if __name__ == '__main__':
