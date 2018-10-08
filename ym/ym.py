@@ -21,6 +21,10 @@ class YM(object):
                     self._month = a.month
                 except:
                     raise ValueError("引数が条件を満たしていません。")
+        elif len(args) == 1 and isinstance(args[0], int):
+            arg = args[0]
+            self._year = arg // 100
+            self._month = arg % 100
         elif len(args) == 1 and isinstance(args[0], datetime):
             arg = args[0]
             self._year = arg.year
