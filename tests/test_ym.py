@@ -56,7 +56,9 @@ class BasicTestSuite(unittest.TestCase):
         assert ym1.todatetime(day=5) == datetime(2001, 10, 5)
         assert int(ym1) == 200110
         assert str(ym1) == "200110"
-        ym(794, 10).toint() == 79410
+        # 年が3桁の場合のテスト
+        assert ym(794, 10).toint() == 79410
+        assert ym(794, 10).tostr() == "079410"
 
 
 if __name__ == '__main__':
