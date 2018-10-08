@@ -52,16 +52,24 @@ class ym(object):
         return self._repr
 
     def __add__(self, n):
-        m = (self._month + n - 1) % 12 + 1
-        y = self._year + (self._month + n - 1) // 12
-        obj = ym(y, m)
-        return obj
+        if isinstance(n, int):
+            m = (self._month + n - 1) % 12 + 1
+            y = self._year + (self._month + n - 1) // 12
+            obj = ym(y, m)
+            return obj
+
+        raise ValueError("サポートされていない足し算です。")
 
     def __sub__(self, n):
-        m = (self._month - n - 1) % 12 + 1
-        y = self._year + (self._month - n - 1) // 12
-        obj = ym(y, m)
-        return obj
+        if isinstance(n, int):
+            m = (self._month - n - 1) % 12 + 1
+            y = self._year + (self._month - n - 1) // 12
+            obj = ym(y, m)
+            return obj
+        elif isinstance(n, ym):
+            return (self._year * 12 + self._month) - (n._year * 12 + n._month)
+
+        raise ValueError("サポートされていない引き算です。")
 
     def __eq__(self, obj):
         if not isinstance(obj, ym):

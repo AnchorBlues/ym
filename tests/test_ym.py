@@ -46,6 +46,10 @@ class BasicTestSuite(unittest.TestCase):
         ym1 += 45
         assert ym1 == "200210"
         assert ym1 in [ym("200411"), ym2]
+        assert ym("200411") - ym("200401") == 10
+        assert ym("200210") - ym("199901") == 45
+        with self.assertRaises(ValueError):
+            ym("200411") + ym("200401")
 
     def test_with_pandas(self):
         ym1 = ym(2001, 10)
