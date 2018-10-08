@@ -25,20 +25,26 @@ class BasicTestSuite(unittest.TestCase):
         assert ym2 == ym4
         assert ym2 == ym5
         with self.assertRaises(AssertionError):
-            ym1.month = 13
+            ym0 = ym(200213)
         with self.assertRaises(AssertionError):
-            ym1.month = 0
+            ym0 = ym(200200)
         with self.assertRaises(AssertionError):
-            ym1.year = -1
+            ym0 = ym(-12312)
         with self.assertRaises(AssertionError):
-            ym1.year = 10000
+            ym0 = ym(2000012)
+        with self.assertRaises(ValueError):
+            ym0 = ym("2000012")
+        with self.assertRaises(ValueError):
+            ym0 = ym("79412")
 
-        ym1.month = 1
-        assert ym1 == "200101"
-        ym1.year = 2003
-        assert ym1 == 200301
-        ym1 += 22
-        assert ym1 == "200411"
+        ym1 -= 10
+        assert ym1 == "200012"
+        ym1 -= 24
+        assert ym1 == "199812"
+        ym1 += 1
+        assert ym1 == "199901"
+        ym1 += 45
+        assert ym1 == "200210"
         assert ym1 in [ym("200411"), ym2]
 
     def test_with_pandas(self):
@@ -54,8 +60,11 @@ class BasicTestSuite(unittest.TestCase):
     def test_convert(self):
         ym1 = ym(2001, 10)
         assert ym1.toint() == 200110
+        assert isinstance(ym1.toint(), int)
         assert ym1.tostr() == "200110"
+        assert isinstance(ym1.tostr(), str)
         assert ym1.todatetime(day=5) == datetime(2001, 10, 5)
+        assert isinstance(ym1.todatetime(), datetime)
         assert int(ym1) == 200110
         assert str(ym1) == "200110"
         # 年が3桁の場合のテスト
@@ -63,8 +72,14 @@ class BasicTestSuite(unittest.TestCase):
         assert ym(794, 10).tostr() == "079410"
 
     def test_hashable(self):
-        dct = {ym(2001, 1): 'hoge'}
-        assert dct[ym(2001, 1)] == 'hoge'
+        key = ym(2001, 1)
+        with self.assertRaises(AttributeError):
+            key.month = 2
+        with self.assertRaises(AttributeError):
+            key.year = 2002
+
+        dct = {key: 'hoge'}
+        assert dct[key] == 'hoge'
         df = pd.DataFrame({
             "string": ['hoge', 'fuga', 'piyo'],
             "ym": [ym(200101), ym(200101), ym(200102)]

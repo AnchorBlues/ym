@@ -32,6 +32,8 @@ class ym(object):
         else:
             raise ValueError("引数が条件を満たしていません。")
 
+        assert self._month >= 1 and self._month <= 12
+        assert self._year >= 0 and self._year <= 9999
         self._year_str = "{0:04d}".format(self._year)
         self._month_str = "{0:02d}".format(self._month)
         self._repr = self._year_str + self._month_str
@@ -39,37 +41,25 @@ class ym(object):
     def get_year(self):
         return self._year
 
-    def set_year(self, year):
-        assert year >= 0 and year <= 9999
-        self._year = year
-        self._year_str = "{0:04d}".format(self._year)
-        self._repr = self._year_str + self._month_str
-
-    year = property(get_year, set_year)
+    year = property(get_year)
 
     def get_month(self):
         return self._month
 
-    def set_month(self, month):
-        assert month >= 1 and month <= 12
-        self._month = month
-        self._month_str = "{0:02d}".format(self._month)
-        self._repr = self._year_str + self._month_str
-
-    month = property(get_month, set_month)
+    month = property(get_month)
 
     def __repr__(self):
         return self._repr
 
     def __add__(self, n):
-        m = (self._month + n) % 12
-        y = self._year + (self._month + n) // 12
+        m = (self._month + n - 1) % 12 + 1
+        y = self._year + (self._month + n - 1) // 12
         obj = ym(y, m)
         return obj
 
     def __sub__(self, n):
-        m = (self._month - n) % 12
-        y = self._year + (self._month - n) // 12
+        m = (self._month - n - 1) % 12 + 1
+        y = self._year + (self._month - n - 1) // 12
         obj = ym(y, m)
         return obj
 

@@ -13,7 +13,7 @@ with open('LICENSE') as f:
 
 setup(
     name='ym',
-    version='0.1.1',
+    version='0.1.2',
     description='YearMonth object for Python',
     long_description=readme,
     author='Yu Umegaki',
