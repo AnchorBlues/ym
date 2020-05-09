@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from datetime import datetime
+from typing import Union
 import pandas as pd
 
 
-class ym(object):
+class ym:
     def __init__(self, *args):
         if len(args) == 2:
             self._year = args[0]
@@ -38,20 +39,20 @@ class ym(object):
         self._month_str = "{0:02d}".format(self._month)
         self._repr = self._year_str + self._month_str
 
-    def get_year(self):
+    def get_year(self) -> int:
         return self._year
 
     year = property(get_year)
 
-    def get_month(self):
+    def get_month(self) -> int:
         return self._month
 
     month = property(get_month)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return self._repr
 
-    def __add__(self, n):
+    def __add__(self, n: int) -> "ym":
         if isinstance(n, int):
             m = (self._month + n - 1) % 12 + 1
             y = self._year + (self._month + n - 1) // 12
@@ -60,7 +61,7 @@ class ym(object):
 
         raise ValueError("サポートされていない足し算です。")
 
-    def __sub__(self, n):
+    def __sub__(self, n: Union[int, "ym"]) -> Union["ym", int]:
         if isinstance(n, int):
             m = (self._month - n - 1) % 12 + 1
             y = self._year + (self._month - n - 1) // 12
@@ -71,47 +72,47 @@ class ym(object):
 
         raise ValueError("サポートされていない引き算です。")
 
-    def __eq__(self, obj):
+    def __eq__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr == obj._repr
 
-    def __ne__(self, obj):
+    def __ne__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr != obj._repr
 
-    def __lt__(self, obj):
+    def __lt__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr < obj._repr
 
-    def __le__(self, obj):
+    def __le__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr <= obj._repr
 
-    def __gt__(self, obj):
+    def __gt__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr > obj._repr
 
-    def __ge__(self, obj):
+    def __ge__(self, obj: "ym") -> bool:
         if not isinstance(obj, ym):
             obj = ym(obj)
         return self._repr >= obj._repr
 
-    def __int__(self):
+    def __int__(self) -> int:
         return self._year * 100 + self._month
 
-    def __hash__(self):
+    def __hash__(self) -> int:
         return hash(self._repr)
 
-    def toint(self):
+    def toint(self) -> int:
         return int(self)
 
-    def tostr(self):
+    def tostr(self) -> str:
         return self._repr
 
-    def todatetime(self, day=1):
+    def todatetime(self, day: int=1) -> datetime:
         return datetime(self._year, self._month, day)
