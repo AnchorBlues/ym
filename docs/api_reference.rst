@@ -4,6 +4,6 @@ API Reference
 YearMonth
 ----------------------------------
 
-.. autoclass:: ym.ym.ym
+.. autoclass:: ym.ym
     :inherited-members:
 
