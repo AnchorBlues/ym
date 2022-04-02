@@ -2,8 +2,7 @@
 
 # Learn more: https://github.com/AnchorBlues/ym/setup.py
 
-from setuptools import setup, find_packages
-
+from setuptools import find_packages, setup
 
 with open('README.rst') as f:
     readme = f.read()
@@ -13,7 +12,7 @@ with open('LICENSE') as f:
 
 setup(
     name='ym',
-    version='0.1.3',
+    version='0.1.4',
     description='YearMonth object for Python',
     long_description=readme,
     author='Yu Umegaki',

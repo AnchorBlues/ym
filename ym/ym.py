@@ -2,11 +2,16 @@
 
 from datetime import datetime
 from typing import Union
+
 import pandas as pd
 
 
 class ym:
+    """YearMonth object
+    """
     def __init__(self, *args):
+        """YearMonthオブジェクトのコンストラクタ
+        """
         if len(args) == 2:
             self._year = args[0]
             self._month = args[1]
@@ -20,7 +25,7 @@ class ym:
                     a = pd.Timestamp(arg)
                     self._year = a.year
                     self._month = a.month
-                except:
+                except (ValueError, TypeError):
                     raise ValueError("引数が条件を満たしていません。")
         elif len(args) == 1 and isinstance(args[0], int):
             arg = args[0]
@@ -40,11 +45,21 @@ class ym:
         self._repr = self._year_str + self._month_str
 
     def get_year(self) -> int:
+        """「年」の情報を得る
+
+        Returns:
+            int: 「年」
+        """
         return self._year
 
     year = property(get_year)
 
     def get_month(self) -> int:
+        """「月」の情報を得る
+
+        Returns:
+            int: 「月」
+        """
         return self._month
 
     month = property(get_month)
@@ -112,7 +127,20 @@ class ym:
         return int(self)
 
     def tostr(self) -> str:
+        """文字列に変換
+
+        Returns:
+            str: 変換された文字列
+        """
         return self._repr
 
-    def todatetime(self, day: int=1) -> datetime:
+    def todatetime(self, day: int = 1) -> datetime:
+        """datetimeオブジェクトに変換
+
+        Args:
+            day (int, optional): 日(day). Defaults to 1.
+
+        Returns:
+            datetime: 変換されたdatetimeオブジェクト
+        """
         return datetime(self._year, self._month, day)
