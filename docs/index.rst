@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
    :caption: Contents:
 
+   ym
    api_reference
 
 Indices and tables
