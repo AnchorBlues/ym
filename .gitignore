@@ -65,6 +65,7 @@ docs/_build/
 docs/*.rst
 !docs/index.rst
 !docs/api_reference.rst
+!docs/ym.rst
 
 # PyBuilder
 target/
