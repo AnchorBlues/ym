@@ -13,7 +13,6 @@ Contents:
    :caption: Contents:
 
    ym
-   api_reference
 
 Indices and tables
 ==================
